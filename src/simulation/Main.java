@@ -5,6 +5,7 @@ import models.Particle;
 import models.Universe;
 import utils.Configuration;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,8 +53,20 @@ public class Main {
 					double id = p.getId();
 					double x = p.getPositionX();
 					double y = p.getPositionY();
-					//double r = config.getLength();
-					double currentParticle[] = {id,x,y/*,r*/};
+					double ra = config.getLength();
+					double r;
+					double g;
+					double b;
+					if(p.getState()) {
+						r = Color.white.getRed();
+						g = Color.white.getGreen();
+						b = Color.white.getBlue();
+					}else {
+						r = Color.black.getRed();
+						g = Color.black.getGreen();
+						b = Color.black.getBlue();
+					}
+					double currentParticle[] = {id,x,y,ra,r,g,b};
 					currentPositions.add(currentParticle);
 				}
 			}
@@ -101,10 +114,11 @@ public class Main {
 			writer = new FileWriter(file);
 			while (j < final_step) {
 				writer.write(quantity + "\n");
-				writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" /*+ "Radius"*/ + "\n");
+				writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" + "Radius" + "\t" + "Red"+ "\t" + "Green" + "\t" + "Blue" + "\n");
 
 				for (int i = 0; i < quantity; i++) {
-					writer.write((int) list.get(j).get(i)[0] + "\t" + list.get(j).get(i)[1] + "\t" + list.get(j).get(i)[2] /*+ "\t" + list.get(0).get(i)[3]*/ + "\n");
+					writer.write((int) list.get(j).get(i)[0] + "\t" + list.get(j).get(i)[1] + "\t" + list.get(j).get(i)[2] + "\t" 
+								+ list.get(0).get(i)[3] + "\t" + list.get(0).get(i)[4] + "\t" + list.get(0).get(i)[5] + "\t" + list.get(0).get(i)[6] + "\n");
 				}
 				j++;
 			}
