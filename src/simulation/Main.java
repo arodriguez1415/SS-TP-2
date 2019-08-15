@@ -40,13 +40,13 @@ public class Main {
 		CellIndexMethod.particlePerColumn = particle_per_column;
 		simulation = new Simulation(universe);
 		simulation.startSimulation();
-		List<double[]> currentPositions = new ArrayList<>();
 
 		checkStage(simulation);
 
 		while (simulation.getSteps() < final_step) {
 			simulation.nextStep();
 			checkStage(simulation);
+			List<double[]> currentPositions = new ArrayList<>();
 
 			for(Particle[] row : simulation.getUniverse().getMatrix()) {
 				for(Particle p : row) {
@@ -118,7 +118,7 @@ public class Main {
 
 				for (int i = 0; i < quantity; i++) {
 					writer.write((int) list.get(j).get(i)[0] + "\t" + list.get(j).get(i)[1] + "\t" + list.get(j).get(i)[2] + "\t" 
-								+ list.get(0).get(i)[3] + "\t" + list.get(0).get(i)[4] + "\t" + list.get(0).get(i)[5] + "\t" + list.get(0).get(i)[6] + "\n");
+								+ list.get(j).get(i)[3] + "\t" + list.get(j).get(i)[4] + "\t" + list.get(j).get(i)[5] + "\t" + list.get(j).get(i)[6] + "\n");
 				}
 				j++;
 			}
