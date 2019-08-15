@@ -1,9 +1,9 @@
 # PARTICLE MODIFIERS
-length = 5.00
+length = 25.0
 
 # SIMULATION MODIFIERS
 final_step = 5
 
 # MATRIX MODIFIERS
-particle_per_row = 50
-particle_per_column = 25
+particle_per_row = 250
+particle_per_column = 300

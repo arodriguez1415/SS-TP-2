@@ -41,11 +41,9 @@ public class Main {
 		simulation = new Simulation(universe);
 		simulation.startSimulation();
 
-		checkStage(simulation);
 
 		while (simulation.getSteps() < final_step) {
 			simulation.nextStep();
-			checkStage(simulation);
 			List<double[]> currentPositions = new ArrayList<>();
 
 			for(Particle[] row : simulation.getUniverse().getMatrix()) {

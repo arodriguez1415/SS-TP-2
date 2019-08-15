@@ -49,14 +49,36 @@ public class Simulation {
 		double positionParticleX;
 		double positionParticleY;
 		boolean state;
-		Random rand;
+		Random rand1;
+		Random rand2;
 		
 		positionParticleX = (double) (positionX + 1) * Particle.getLength() - Particle.getLength() / 2;
 		positionParticleY = (double) (positionY + 1) * Particle.getLength() - Particle.getLength() / 2;
-		rand = new Random();
-		state = rand.nextBoolean();
+		rand1 = new Random();
+		rand2 = new Random();
+		state = rand1.nextBoolean() || rand2.nextBoolean();
 	    
 		particle = new Particle(positionParticleX, positionParticleY, state);
+		return particle;
+	}
+	
+	public Particle createParticle(int positionX, int positionY, int positionZ) {
+		Particle particle;
+		double positionParticleX;
+		double positionParticleY;
+		double positionParticleZ;
+		boolean state;
+		Random rand1;
+		Random rand2;
+		
+		positionParticleX = (double) (positionX + 1) * Particle.getLength() - Particle.getLength() / 2;
+		positionParticleY = (double) (positionY + 1) * Particle.getLength() - Particle.getLength() / 2;
+		positionParticleZ = (double) (positionZ + 1) * Particle.getLength() - Particle.getLength() / 2;
+		rand1 = new Random();
+		rand2 = new Random();
+		state = rand1.nextBoolean() || rand2.nextBoolean();
+	    
+		particle = new Particle(positionParticleX, positionParticleY, positionParticleZ, state);
 		return particle;
 	}
 	
