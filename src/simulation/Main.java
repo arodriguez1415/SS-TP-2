@@ -57,9 +57,9 @@ public class Main {
 					currentPositions.add(currentParticle);
 				}
 			}
+			ovitoInput.add(currentPositions);
 		}
 
-		ovitoInput.add(currentPositions);
 		generateOvitoInput(ovitoInput, config.getParticlePerColumn()*config.getParticlePerRow(), final_step);
 		
 	}
@@ -104,7 +104,7 @@ public class Main {
 				writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" /*+ "Radius"*/ + "\n");
 
 				for (int i = 0; i < quantity; i++) {
-					writer.write((int) list.get(0).get(i)[0] + "\t" + list.get(0).get(i)[1] + "\t" + list.get(0).get(i)[2] /*+ "\t" + list.get(0).get(i)[3]*/ + "\n");
+					writer.write((int) list.get(j).get(i)[0] + "\t" + list.get(j).get(i)[1] + "\t" + list.get(j).get(i)[2] /*+ "\t" + list.get(0).get(i)[3]*/ + "\n");
 				}
 				j++;
 			}
