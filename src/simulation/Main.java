@@ -60,7 +60,7 @@ public class Main {
 		}
 
 		ovitoInput.add(currentPositions);
-		generateOvitoInput(ovitoInput, config.getParticlePerColumn()*config.getParticlePerRow());
+		generateOvitoInput(ovitoInput, config.getParticlePerColumn()*config.getParticlePerRow(), final_step);
 		
 	}
 
@@ -82,15 +82,10 @@ public class Main {
 		System.out.println("---------------------------");
 	}
 
-	public static void generateOvitoInput(List<List<double[]>> list, Integer quantity) {
-		System.out.println("N = " + quantity);
-		//System.out.println("Particles");
-		//for (int i = 0; i < quantity; i++) {
-		//	System.out.println((int)list.get(0).get(i)[0] + "\t" + list.get(0).get(i)[1] + "\t" + list.get(0).get(i)[2] + "\t" + list.get(0).get(i)[3] + "\t" + list.get(0).get(i)[4] + "\t" + list.get(0).get(i)[5] + "\t" + list.get(0).get(i)[6]);
-		//}
+	public static void generateOvitoInput(List<List<double[]>> list, int quantity, int final_step) {
+		//System.out.println("N = " + quantity);
 
 		File file = new File("./data.txt");
-
 		//Create the file
 		try {
 			file.createNewFile();
@@ -100,17 +95,19 @@ public class Main {
 		}
 
 		//Write Content
+		int j = 0;
 		FileWriter writer;
 		try {
 			writer = new FileWriter(file);
-			writer.write(quantity + "\n");
-			writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" + "Radius" + "\n");
+			while (j < final_step) {
+				writer.write(quantity + "\n");
+				writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" /*+ "Radius"*/ + "\n");
 
-
-			for (int i = 0; i < quantity; i++) {
-				writer.write((int)list.get(0).get(i)[0] + "\t" + list.get(0).get(i)[1] + "\t" + list.get(0).get(i)[2] /*+ "\t" + list.get(0).get(i)[3]*/ + "\n");
+				for (int i = 0; i < quantity; i++) {
+					writer.write((int) list.get(0).get(i)[0] + "\t" + list.get(0).get(i)[1] + "\t" + list.get(0).get(i)[2] /*+ "\t" + list.get(0).get(i)[3]*/ + "\n");
+				}
+				j++;
 			}
-
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
