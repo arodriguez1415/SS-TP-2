@@ -4,36 +4,51 @@ import java.util.Random;
 
 import models.Particle;
 import models.Universe;
+import models.Universe3D;
 
 public class Simulation {
 	
-	private Universe universe;
+	private Universe universe2D;
+	private Universe3D universe3D;
 	private int steps;
 	
-	public Simulation(Universe universe) {
-		this.universe = universe;
+	public Simulation(Universe universe2D) {
+		this.universe2D = universe2D;
+		this.setSteps(0);
+	}
+	
+	public Simulation(Universe3D universe3D) {
+		this.universe3D = universe3D;
 		this.setSteps(0);
 	}
 
-	public Universe getUniverse() {
-		return universe;
+	public Universe getUniverse2D() {
+		return universe2D;
+	}
+	
+	public Universe3D getUniverse3D() {
+		return universe3D;
 	}
 	
 	public int getSteps() {
 		return steps;
 	}
 
-	public void setUniverse(Universe universe) {
-		this.universe = universe;
+	public void setUniverse2D(Universe universe2D) {
+		this.universe2D = universe2D;
+	}
+	
+	public void setUniverse3D(Universe3D universe3D) {
+		this.universe3D = universe3D;
 	}
 
 	public void setSteps(int steps) {
 		this.steps = steps;
 	}
 	
-	public void startSimulation() {
-		int rowDim = this.getUniverse().getParticlePerRow();
-		int columnDim = this.getUniverse().getParticlePerColumn();
+	public void startSimulation2D() {
+		int rowDim = this.getUniverse2D().getParticlePerRow();
+		int columnDim = this.getUniverse2D().getParticlePerColumn();
 		Particle[][] matrix = new Particle[rowDim][columnDim];
 		
 		for(int i = 0; i < rowDim; i++)
@@ -41,7 +56,22 @@ public class Simulation {
 				matrix[i][j] = createParticle(i,j);
 			}
 		
-		this.getUniverse().setMatrix(matrix);
+		this.getUniverse2D().setMatrix(matrix);
+	}
+	
+	public void startSimulation3D() {
+		int rowDim = this.getUniverse3D().getParticlePerRow();
+		int columnDim = this.getUniverse3D().getParticlePerColumn();
+		int heightDim = this.getUniverse3D().getParticlePerHeight();
+		Particle[][][] matrix = new Particle[rowDim][columnDim][heightDim];
+		
+		for(int i = 0; i < rowDim; i++)
+			for(int j = 0; j < columnDim; j++) 
+				for(int k = 0; k < heightDim; k++)
+					matrix[i][j][k] = createParticle(i,j,k);
+			
+		
+		this.getUniverse3D().setMatrix(matrix);
 	}
 	
 	public Particle createParticle(int positionX, int positionY) {
@@ -82,9 +112,16 @@ public class Simulation {
 		return particle;
 	}
 	
-	public void nextStep() {
-		Particle newMatrix[][] = CellIndexMethod.getNextStage(this.universe);
-		this.universe.setMatrix(newMatrix);
+	public void nextStep2D() {
+		Particle newMatrix[][] = CellIndexMethod.getNextStage2D(this.universe2D);
+		this.universe2D.setMatrix(newMatrix);
+		steps++;
+	}
+	
+	public void nextStep3D() {
+		System.out.println("next step");
+		Particle newMatrix[][][] = CellIndexMethod.getNextStage3D(this.universe3D);
+		this.universe3D.setMatrix(newMatrix);
 		steps++;
 	}
 	

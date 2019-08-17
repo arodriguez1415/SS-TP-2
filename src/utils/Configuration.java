@@ -44,6 +44,14 @@ public class Configuration {
 		return Integer.parseInt(program_configuration.get("final_step"));
 	}
 	
+	public int getDimension() {
+		return Integer.parseInt(program_configuration.get("dimension"));
+	}
+	
+	public String getRule() {
+		return program_configuration.get("rule");
+	}
+	
 	/* Getting matrix modifiers*/
 	
 	public int getParticlePerRow() {
@@ -52,6 +60,10 @@ public class Configuration {
 	
 	public int getParticlePerColumn() {
 		return Integer.parseInt(program_configuration.get("particle_per_column"));
+	}
+	
+	public int getParticlePerHeight() {
+		return Integer.parseInt(program_configuration.get("particle_per_height"));
 	}
 	
 
