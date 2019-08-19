@@ -1,0 +1,13 @@
+# PARTICLE MODIFIERS
+length = 25.0
+
+# SIMULATION MODIFIERS
+final_step = 35
+dimension = 2
+initialpattern = circular
+rule = general_2d
+
+# MATRIX MODIFIERS
+particle_per_row = 100
+particle_per_column = 100
+particle_per_height = 100

@@ -65,9 +65,7 @@ public class Configuration {
 	public int getParticlePerHeight() {
 		return Integer.parseInt(program_configuration.get("particle_per_height"));
 	}
-	
 
-	
-
+	public String getInitialPattern() { return program_configuration.get("initialpattern"); }
 
 }

@@ -4,19 +4,12 @@ import models.Particle;
 import models.Universe;
 import models.Universe3D;
 
-
 public class CellIndexMethod{
 	
 	public static int particlePerRow;
 	public static int particlePerColumn;
 	public static int particlePerHeight;
 	public static String RULE;
-	public static final int RULE_1_2D = 2;
-	public static final int RULE_2_2D = 3;
-	
-	public static final int RULE_1_3D = 2;
-	public static final int RULE_2_3D = 3;
-	public static final int RULE_3_3D = 4;
 
 	public static Particle[][] getNextStage2D(Universe currentState) {
 		Particle[][] previous = currentState.getMatrix();
@@ -24,7 +17,7 @@ public class CellIndexMethod{
 		Particle p;
 
 		for (int i = 0; i < particlePerRow ; i++) {
-			for(int j = 0; j < particlePerColumn ; j++) {
+			for (int j = 0; j < particlePerColumn ; j++) {
 				p = previous[i][j];
 				next[i][j] = checkNeighboursCells2D(previous, i, j, p);
 			}
@@ -53,20 +46,16 @@ public class CellIndexMethod{
 	public static Particle checkNeighboursCells2D(Particle[][] matrix, int i, int j, Particle p){
 		Particle newParticle = new Particle(p.getPositionX(), p.getPositionY(), false);
 		newParticle.setState(Rule.implementRule2D(RULE, matrix, i, j, newParticle));
+
 		return newParticle;
 	}
 	
 	public static Particle checkNeighboursCells3D(Particle[][][] matrix, int i, int j, int k, Particle p){
 		Particle newParticle = new Particle(p.getPositionX(), p.getPositionY(), false);
 		newParticle.setState(Rule.implementRule3D(RULE, matrix, i, j, k, newParticle));
+
 		return newParticle;
 	}
-	
-
-	
-	
-	
-
 
 }
 

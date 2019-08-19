@@ -28,13 +28,4 @@ public class Universe {
 		this.matrix = matrix;
 	}
 
-
-	public void setParticlePerRow(int particlePerRow) {
-		this.particlePerRow = particlePerRow;
-	}
-
-	public void setParticlePerColumn(int particlePerColumn) {
-		this.particlePerColumn = particlePerColumn;
-	}
-
 }

@@ -13,18 +13,18 @@ public class Particle {
 	private boolean state;
 	
 	public Particle(double positionX, double positionY, boolean state) {
-		this.positionX = positionX;
-		this.positionY = positionY;
-		this.id = particleID++;
-		this.state = state;
+		this.positionX 	= positionX;
+		this.positionY 	= positionY;
+		this.id 		= particleID++;
+		this.state 		= state;
 	}
 	
-	public Particle(double positionX, double positionY, double positionZ,boolean state) {
-		this.positionX = positionX;
-		this.positionY = positionY;
-		this.positionZ = positionZ;
-		this.id = particleID++;
-		this.state = state;
+	public Particle(double positionX, double positionY, double positionZ, boolean state) {
+		this.positionX 	= positionX;
+		this.positionY 	= positionY;
+		this.positionZ 	= positionZ;
+		this.id 		= particleID++;
+		this.state 		= state;
 	}
 
 	public double getPositionX() {
@@ -37,10 +37,6 @@ public class Particle {
 	
 	public double getPositionZ() {
 		return positionZ;
-	}
-
-	public void setPositionX(double positionX) {
-		this.positionX = positionX;
 	}
 	
 	public boolean getState() {
@@ -55,14 +51,6 @@ public class Particle {
 		return length;
 	}
 
-	public void setPositionY(double positionY) {
-		this.positionY = positionY;
-	}
-	
-	public void setPositionZ(double positionZ) {
-		this.positionZ = positionZ;
-	}
-
 	public void setState(boolean state) {
 		this.state = state;
 	}
@@ -74,10 +62,8 @@ public class Particle {
 	public static void setLength(double length) {
 		Particle.length = length;
 	}
-	
+
 	public void printParticleInfo() {
 		System.out.println(this.positionX + " " + this.positionY);
 	}
-	
-
 }

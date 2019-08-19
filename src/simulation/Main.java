@@ -22,44 +22,47 @@ public class Main {
 	public static int final_step;
 	public static int dimension;
 	public static String rule;
+	public static String initialPattern;
 	public static List<List<double[]>> ovitoInput;
 	
 	public final static int DIMENSION_2D = 2;
 	public final static int DIMENSION_3D = 3;
 
-
-	public static void main(String[] args) {
+	public static void main (String[] args) {
 		Configuration config = new Configuration();
 		Simulation simulation;
 		config.loadConfig();
 
-
-		particle_length = config.getLength();
-		particle_per_row = config.getParticlePerRow();
+		particle_length 	= config.getLength();
+		particle_per_row	= config.getParticlePerRow();
 		particle_per_column = config.getParticlePerColumn();
 		particle_per_height = config.getParticlePerHeight();
-		final_step = config.getFinalStep();
-		dimension = config.getDimension();
-		rule = config.getRule();
-		ovitoInput = new ArrayList<>();
+		final_step 			= config.getFinalStep();
+		dimension			= config.getDimension();
+		rule 				= config.getRule();
+		initialPattern		= config.getInitialPattern();
+		ovitoInput 			= new ArrayList<>();
 		
 		setVariables();
 
-		if(dimension == DIMENSION_2D) {
-			simulation = new Simulation(new Universe(particle_per_row, particle_per_column));
+		if (dimension == DIMENSION_2D) {
+			simulation = new Simulation(new Universe(particle_per_row, particle_per_column), initialPattern);
 			simulation.startSimulation2D();
-		}
-		else {
-			simulation = new Simulation(new Universe3D(particle_per_row, particle_per_column, particle_per_height));
+		} else {
+			simulation = new Simulation(new Universe3D(particle_per_row, particle_per_column, particle_per_height), initialPattern);
 			simulation.startSimulation3D();
 		}
+
+		int loopcount = 0;
 		while (simulation.getSteps() < final_step) {
 			List<double[]> currentPositions = new ArrayList<>();
 			
-			if(dimension == DIMENSION_2D) {
-				simulation.nextStep2D();
-				for(Particle[] row : simulation.getUniverse2D().getMatrix()) {
-					for(Particle p : row) {
+			if (dimension == DIMENSION_2D) {
+				if(loopcount != 0)
+					simulation.nextStep2D();
+				loopcount++;
+				for (Particle[] row : simulation.getUniverse2D().getMatrix()) {
+					for (Particle p : row) {
 						double id = p.getId();
 						double x = p.getPositionX();
 						double y = p.getPositionY();
@@ -67,26 +70,28 @@ public class Main {
 						double r;
 						double g;
 						double b;
-						if(p.getState()) {
+
+						if (p.getState()) {
 							r = Color.white.getRed();
 							g = Color.white.getGreen();
 							b = Color.white.getBlue();
-						}else {
+						} else {
 							r = Color.black.getRed();
 							g = Color.black.getGreen();
 							b = Color.black.getBlue();
 						}
+
 						double currentParticle[] = {id,x,y,ra,r,g,b};
 						currentPositions.add(currentParticle);
 					}
 				}
-			}
-				
-			else {
-				simulation.nextStep3D();
-				for(int i = 0; i < particle_per_row; i++)
-					for(int j = 0; j < particle_per_column; j++)
-						for(int k = 0; k < particle_per_height; k++) {
+			} else {
+				if(loopcount != 0)
+					simulation.nextStep3D();
+				loopcount++;
+				for (int i = 0; i < particle_per_row; i++) {
+					for (int j = 0; j < particle_per_column; j++) {
+						for (int k = 0; k < particle_per_height; k++) {
 							Particle p = simulation.getUniverse3D().getMatrix()[i][j][k];
 							double id = p.getId();
 							double x = p.getPositionX();
@@ -96,19 +101,22 @@ public class Main {
 							double r;
 							double g;
 							double b;
-							if(p.getState()) {
+							if (p.getState()) {
 								r = Color.white.getRed();
 								g = Color.white.getGreen();
 								b = Color.white.getBlue();
-							}else {
+							} else {
 								r = Color.black.getRed();
 								g = Color.black.getGreen();
 								b = Color.black.getBlue();
 							}
-							double currentParticle[] = {id,x,y,z,ra,r,g,b};
+							double currentParticle[] = {id, x, y, z, ra, r, g, b};
 							currentPositions.add(currentParticle);
+						}
 					}
 				}
+
+			}
 
 			ovitoInput.add(currentPositions);
 			
@@ -120,13 +128,14 @@ public class Main {
 	
 	private static void setVariables() {
 		Particle.setLength(particle_length);
-		CellIndexMethod.particlePerRow = particle_per_row;
-		CellIndexMethod.particlePerColumn = particle_per_column;
-		CellIndexMethod.particlePerHeight = particle_per_height;
-		CellIndexMethod.RULE = rule;
-		Rule.particlePerRow = particle_per_row;
-		Rule.particlePerColumn = particle_per_column;
-		Rule.particlePerHeight = particle_per_height;
+
+		CellIndexMethod.particlePerRow 		= particle_per_row;
+		CellIndexMethod.particlePerColumn 	= particle_per_column;
+		CellIndexMethod.particlePerHeight 	= particle_per_height;
+		CellIndexMethod.RULE 				= rule;
+		Rule.particlePerRow 				= particle_per_row;
+		Rule.particlePerColumn 				= particle_per_column;
+		Rule.particlePerHeight 				= particle_per_height;
 	}
 
 	public static void generateOvitoInput(List<List<double[]>> list, int quantity, int final_step) {
@@ -147,7 +156,7 @@ public class Main {
 		try {
 			writer = new FileWriter(file);
 			while (j < final_step) {
-				if(dimension == DIMENSION_2D) {
+				if (dimension == DIMENSION_2D) {
 					writer.write(quantity + "\n");
 					writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" + "Radius" + "\t" + "Red"+ "\t" + "Green" + "\t" + "Blue" + "\n");
 
@@ -155,7 +164,7 @@ public class Main {
 						writer.write((int) list.get(j).get(i)[0] + "\t" + list.get(j).get(i)[1] + "\t" + list.get(j).get(i)[2] + "\t" 
 									+ list.get(j).get(i)[3] + "\t" + list.get(j).get(i)[4] + "\t" + list.get(j).get(i)[5] + "\t" + list.get(j).get(i)[6] + "\n");
 					}
-				}else {
+				} else {
 					writer.write(quantity + "\n");
 					writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" + "Z" + "\t" + "Radius" + "\t" + "Red"+ "\t" + "Green" + "\t" + "Blue" + "\n");
 

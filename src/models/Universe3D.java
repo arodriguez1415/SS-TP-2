@@ -7,7 +7,7 @@ public class Universe3D {
 	private int particlePerColumn;
 	private int particlePerHeight;
 	
-	public Universe3D(int particlePerRow, int particlePerColumn, int particlePerHeight) {
+	public Universe3D (int particlePerRow, int particlePerColumn, int particlePerHeight) {
 		this.particlePerRow = particlePerRow;
 		this.particlePerColumn = particlePerColumn;
 		this.particlePerHeight = particlePerHeight;
@@ -32,19 +32,6 @@ public class Universe3D {
 	
 	public void setMatrix(Particle[][][] matrix) {
 		this.matrix = matrix;
-	}
-
-
-	public void setParticlePerRow(int particlePerRow) {
-		this.particlePerRow = particlePerRow;
-	}
-
-	public void setParticlePerColumn(int particlePerColumn) {
-		this.particlePerColumn = particlePerColumn;
-	}
-	
-	public void setParticlePerHeight(int particlePerHeight) {
-		this.particlePerHeight = particlePerHeight;
 	}
 
 }
