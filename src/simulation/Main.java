@@ -23,7 +23,6 @@ public class Main {
 	public static int dimension;
 	public static String rule;
 	public static String initialPattern;
-	public static List<List<double[]>> ovitoInput;
 	
 	public final static int DIMENSION_2D = 2;
 	public final static int DIMENSION_3D = 3;
@@ -41,7 +40,7 @@ public class Main {
 		dimension			= config.getDimension();
 		rule 				= config.getRule();
 		initialPattern		= config.getInitialPattern();
-		ovitoInput 			= new ArrayList<>();
+		List<List<double[]>> ovitoInput		= new ArrayList<>();
 		
 		setVariables();
 
@@ -159,18 +158,15 @@ public class Main {
 					writer.write(quantity + "\n");
 					writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" + "Radius" + "\t" + "Red"+ "\t" + "Green" + "\t" + "Blue" + "\n");
 
-					for (int i = 0; i < quantity; i++) {
-						writer.write((int) list.get(j).get(i)[0] + "\t" + list.get(j).get(i)[1] + "\t" + list.get(j).get(i)[2] + "\t" 
-									+ list.get(j).get(i)[3] + "\t" + list.get(j).get(i)[4] + "\t" + list.get(j).get(i)[5] + "\t" + list.get(j).get(i)[6] + "\n");
+					for (double[] d : list.get(j)) {
+						writer.write((int) d[0] + "\t" + d[1] + "\t" + d[2] + "\t" + d[3] + "\t" + d[4] + "\t" + d[5] + "\t" + d[6] + "\n");
 					}
 				} else {
 					writer.write(quantity + "\n");
 					writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" + "Z" + "\t" + "Radius" + "\t" + "Red"+ "\t" + "Green" + "\t" + "Blue" + "\n");
 
-					for (int i = 0; i < quantity; i++) {
-						writer.write((int) list.get(j).get(i)[0] + "\t" + list.get(j).get(i)[1] + "\t" + list.get(j).get(i)[2] + "\t" 
-									+ list.get(j).get(i)[3] + "\t" + list.get(j).get(i)[4] + "\t" + list.get(j).get(i)[5] + "\t" + list.get(j).get(i)[6] + "\t" +
-									list.get(j).get(i)[7] + "\n");
+					for (double[] d : list.get(j)) {
+						writer.write((int) d[0] + "\t" + d[1] + "\t" + d[2] + "\t" + d[3] + "\t" + d[4] + "\t" + d[5] + "\t" + d[6] + "\t" + d[7] + "\n");
 					}
 				}
 
