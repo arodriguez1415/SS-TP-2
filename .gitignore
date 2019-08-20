@@ -1,4 +1,7 @@
 
-.idea/
+.idea
+.settings
+.class
+bin/
 
 SS-TP-2.iml
