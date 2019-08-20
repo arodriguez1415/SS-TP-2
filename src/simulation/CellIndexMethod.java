@@ -51,7 +51,7 @@ public class CellIndexMethod{
 	}
 	
 	public static Particle checkNeighboursCells3D(Particle[][][] matrix, int i, int j, int k, Particle p){
-		Particle newParticle = new Particle(p.getPositionX(), p.getPositionY(), false);
+		Particle newParticle = new Particle(p.getPositionX(), p.getPositionY(), p.getPositionZ(), false, p.getId());
 		newParticle.setState(Rule.implementRule3D(RULE, matrix, i, j, k, newParticle));
 
 		return newParticle;

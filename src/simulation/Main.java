@@ -115,7 +115,6 @@ public class Main {
 						}
 					}
 				}
-
 			}
 
 			ovitoInput.add(currentPositions);
@@ -170,8 +169,8 @@ public class Main {
 
 					for (int i = 0; i < quantity; i++) {
 						writer.write((int) list.get(j).get(i)[0] + "\t" + list.get(j).get(i)[1] + "\t" + list.get(j).get(i)[2] + "\t" 
-									+ list.get(j).get(i)[3] + "\t" + list.get(j).get(i)[4] + "\t" + list.get(j).get(i)[5] + "\t" + list.get(j).get(i)[6] + "\n" +
-									list.get(j).get(i)[6] + "\n");
+									+ list.get(j).get(i)[3] + "\t" + list.get(j).get(i)[4] + "\t" + list.get(j).get(i)[5] + "\t" + list.get(j).get(i)[6] + "\t" +
+									list.get(j).get(i)[7] + "\n");
 					}
 				}
 

@@ -2,10 +2,10 @@
 length = 25.0
 
 # SIMULATION MODIFIERS
-final_step = 125
-dimension = 2
-initialpattern = linear
-rule = general_2d
+final_step = 5
+dimension = 3
+initialpattern = random
+rule = general_3d
 
 # MATRIX MODIFIERS
 particle_per_row = 100
