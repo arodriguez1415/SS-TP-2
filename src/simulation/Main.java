@@ -119,9 +119,11 @@ public class Main {
 			ovitoInput.add(currentPositions);
 			
 		}
-
-		generateOvitoInput(ovitoInput, config.getParticlePerColumn()*config.getParticlePerRow(), final_step);
-		
+		if (dimension == DIMENSION_2D) {
+			generateOvitoInput(ovitoInput, config.getParticlePerColumn() * config.getParticlePerRow(), final_step);
+		} else {
+			generateOvitoInput(ovitoInput, config.getParticlePerColumn() * config.getParticlePerRow() * config.getParticlePerHeight(), final_step);
+		}
 	}
 	
 	private static void setVariables() {
