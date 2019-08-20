@@ -2,7 +2,7 @@
 length = 25.0
 
 # SIMULATION MODIFIERS
-final_step = 35
+final_step = 5
 dimension = 2
 initialpattern = circular
 rule = general_2d

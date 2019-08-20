@@ -22,7 +22,7 @@ public class CellIndexMethod{
 				next[i][j] = checkNeighboursCells2D(previous, i, j, p);
 			}
 		}
-		
+
 		return next;
 	}
 	
@@ -44,7 +44,7 @@ public class CellIndexMethod{
 	}
 
 	public static Particle checkNeighboursCells2D(Particle[][] matrix, int i, int j, Particle p){
-		Particle newParticle = new Particle(p.getPositionX(), p.getPositionY(), false);
+		Particle newParticle = new Particle(p.getPositionX(), p.getPositionY(), false, p.getId());
 		newParticle.setState(Rule.implementRule2D(RULE, matrix, i, j, newParticle));
 
 		return newParticle;

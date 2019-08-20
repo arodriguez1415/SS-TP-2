@@ -41,7 +41,8 @@ public class Rule {
 					count++;
 			}
 		}
-
+		if(i == 40 && j == 50)
+		System.out.println("count " + count);
 		if (currentState == true) {
 			if (count >= RULE_GENERAL2D_1 && count <= RULE_GENERAL2D_2) {
 				return true;

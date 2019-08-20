@@ -27,6 +27,13 @@ public class Particle {
 		this.state 		= state;
 	}
 
+	public Particle(double positionX, double positionY, boolean state, int id) {
+		this.positionX 	= positionX;
+		this.positionY 	= positionY;
+		this.id 		= id;
+		this.state 		= state;
+	}
+
 	public double getPositionX() {
 		return positionX;
 	}
