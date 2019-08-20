@@ -1,12 +1,14 @@
 package simulation;
 
 import models.Particle;
+import models.Stadistics;
 
 public class Rule {
 	
 	public static int particlePerRow;
 	public static int particlePerColumn;
 	public static int particlePerHeight;
+	public static Stadistics stadistics;
 	
 	private static final int RULE_GENERAL2D_1 = 2;
 	private static final int RULE_GENERAL2D_2 = 3;
@@ -46,12 +48,18 @@ public class Rule {
 
 		if (currentState == true) {
 			if (count >= RULE_GENERAL2D_1 && count <= RULE_GENERAL2D_2) {
+				stadistics.incrementSupervivance();
 				return true;
+			} else if(count < RULE_GENERAL2D_1){
+				stadistics.incrementMortalityUnder();
+				return false;
 			} else {
+				stadistics.incrementMortalityOver();
 				return false;
 			}
 		} else {
 			if (count == RULE_GENERAL2D_2) {
+				stadistics.incrementReproduction();
 				return true;
 			} else {
 				return false;

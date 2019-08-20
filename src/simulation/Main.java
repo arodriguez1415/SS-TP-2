@@ -2,6 +2,7 @@ package simulation;
 
 
 import models.Particle;
+import models.Stadistics;
 import models.Universe;
 import models.Universe3D;
 import utils.Configuration;
@@ -43,6 +44,9 @@ public class Main {
 		List<List<double[]>> ovitoInput		= new ArrayList<>();
 		
 		setVariables();
+		
+		Stadistics stadistics = new Stadistics(dimension, final_step + 1);
+		Rule.stadistics = stadistics;
 
 		if (dimension == DIMENSION_2D) {
 			simulation = new Simulation(new Universe(particle_per_row, particle_per_column), initialPattern);
@@ -119,6 +123,7 @@ public class Main {
 			ovitoInput.add(currentPositions);
 			
 		}
+		Rule.stadistics.printStadistics();
 		if (dimension == DIMENSION_2D) {
 			generateOvitoInput(ovitoInput, config.getParticlePerColumn() * config.getParticlePerRow(), final_step);
 		} else {

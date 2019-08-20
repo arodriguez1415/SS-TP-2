@@ -3,6 +3,7 @@ package simulation;
 import java.util.Random;
 
 import models.Particle;
+import models.Stadistics;
 import models.Universe;
 import models.Universe3D;
 
@@ -54,13 +55,17 @@ public class Simulation {
 		int columnDim 	= this.getUniverse2D().getParticlePerColumn();
 		Particle[][] matrix = new Particle[rowDim][columnDim];
 		
+		
 		for (int i = 0; i < rowDim; i++) {
 			for (int j = 0; j < columnDim; j++) {
 				matrix[i][j] = createParticle(i, j);
 			}
 		}
 		
+
 		this.getUniverse2D().setMatrix(matrix);
+		Rule.stadistics.getStadistics(this);
+		Rule.stadistics.incrementIteration();
 	}
 	
 	public void startSimulation3D() {
@@ -77,8 +82,9 @@ public class Simulation {
 			}
 		}
 			
-		
 		this.getUniverse3D().setMatrix(matrix);
+		Rule.stadistics.getStadistics(this);
+		Rule.stadistics.incrementIteration();
 	}
 	
 	public Particle createParticle(int positionX, int positionY) {
@@ -221,12 +227,16 @@ public class Simulation {
 	public void nextStep2D() {
 		Particle newMatrix[][] = CellIndexMethod.getNextStage2D(this.universe2D);
 		this.universe2D.setMatrix(newMatrix);
+		Rule.stadistics.getStadistics(this);
+		Rule.stadistics.incrementIteration();
 		steps++;
 	}
 	
 	public void nextStep3D() {
 		Particle newMatrix[][][] = CellIndexMethod.getNextStage3D(this.universe3D);
 		this.universe3D.setMatrix(newMatrix);
+		Rule.stadistics.getStadistics(this);
+		Rule.stadistics.incrementIteration();
 		steps++;
 	}
 	

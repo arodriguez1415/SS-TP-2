@@ -27,6 +27,11 @@ public class Stadistics {
 		this.supervivance = new int[times];
 	}
 	
+	public void getStadistics(Simulation simulation) {
+		setCurrentPopulation(simulation);
+		setCurrentMaxDistance(simulation);
+	}
+	
 	public void setCurrentPopulation(Simulation simulation) {
 		this.population[iteration] = countParticlesAlive(simulation);
 	}
@@ -94,6 +99,18 @@ public class Stadistics {
 	
 	public void incrementIteration() {
 		this.iteration++;
+	}
+	
+	public void printStadistics() {
+		
+		for(int i = 0; i < this.iteration; i++) {
+			System.out.println("-------Step: " + i + "--------");
+			System.out.println("Population: " + this.population[i]);
+			System.out.println("Reproduction: " + this.reproduction[i]);
+			System.out.println("Supervivance: " + this.supervivance[i]);
+			System.out.println("Mortality over: " + this.mortalityOver[i]);
+			System.out.println("Mortality under: " + this.mortalityUnder[i]);
+		}
 	}
 
 }
