@@ -2,9 +2,9 @@
 length = 25.0
 
 # SIMULATION MODIFIERS
-final_step = 5
+final_step = 125
 dimension = 2
-initialpattern = circular
+initialpattern = linear
 rule = general_2d
 
 # MATRIX MODIFIERS

@@ -1,6 +1,8 @@
 package models;
 
 
+import java.awt.*;
+
 public class Particle {
 	
 	private static double length;
@@ -11,6 +13,7 @@ public class Particle {
 	private double positionZ;
 	private int id;
 	private boolean state;
+	private Color color;
 	
 	public Particle(double positionX, double positionY, boolean state) {
 		this.positionX 	= positionX;

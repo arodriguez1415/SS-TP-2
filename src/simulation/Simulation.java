@@ -90,8 +90,8 @@ public class Simulation {
 		positionParticleX = (double) (positionX + 1) * Particle.getLength() - Particle.getLength() / 2;
 		positionParticleY = (double) (positionY + 1) * Particle.getLength() - Particle.getLength() / 2;
 
-		if (initialPattern.toLowerCase().equals("circular")) {
-			state = circle2DPattern(positionX, positionY);
+		if (initialPattern.toLowerCase().equals("battle")) {
+			state = battle2DPattern(positionX, positionY);
 		} else if (initialPattern.toLowerCase().equals("linear")) {
 			state = lineal2DPattern(positionX, positionY);
 		} else {
@@ -111,7 +111,7 @@ public class Simulation {
 		return false;
 	}
 
-	public boolean circle2DPattern(int i, int j){
+	public boolean battle2DPattern(int i, int j){
 		int aux1 = totalRow/2 - 10;
 		int aux2 = totalColumn/2;
 
@@ -197,11 +197,11 @@ public class Simulation {
 		double positionParticleY;
 		double positionParticleZ;
 		boolean state;
-		
+
 		positionParticleX = (double) (positionX + 1) * Particle.getLength() - Particle.getLength() / 2;
 		positionParticleY = (double) (positionY + 1) * Particle.getLength() - Particle.getLength() / 2;
 		positionParticleZ = (double) (positionZ + 1) * Particle.getLength() - Particle.getLength() / 2;
-
+		System.out.println(positionParticleX);
 		state = randomPattern();
 	    
 		particle = new Particle(positionParticleX, positionParticleY, positionParticleZ, state);

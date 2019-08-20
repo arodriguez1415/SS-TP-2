@@ -33,16 +33,17 @@ public class Rule {
 	
 	private static boolean general2D(Particle[][] matrix, int i, int j, Particle p) {
 		int count = 0;
-		boolean currentState = p.getState();
+		boolean currentState = matrix[i][j].getState();
 	
 		for (int x = i - 1 ; x <= i + 1 && x < particlePerRow; x++) {
 			for (int y = j - 1; y <= j + 1 && y < particlePerColumn; y++) {
-				if (x >= 0 && y >= 0 && matrix[x][y].getId() != p.getId() && matrix[x][y].getState())
+				if (x >= 0 && y >= 0 && matrix[x][y].getId() != p.getId() && matrix[x][y].getState()) {
 					count++;
+				}
+
 			}
 		}
-		if(i == 40 && j == 50)
-		System.out.println("count " + count);
+
 		if (currentState == true) {
 			if (count >= RULE_GENERAL2D_1 && count <= RULE_GENERAL2D_2) {
 				return true;
