@@ -2,6 +2,12 @@ package models;
 
 import simulation.Simulation;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Stadistics {
 	
 	public final static int TWO_DIMENSION = 2;
@@ -156,16 +162,61 @@ public class Stadistics {
 	}
 	
 	public void printStadistics() {
-		
+
+		// Our example data
+		List<List<String>> rows = new ArrayList<>();
+
 		for(int i = 0; i < this.iteration; i++) {
-			System.out.println("-------Step: " + i + "--------");
-			System.out.println("Population: " + this.population[i]);
-			System.out.println("Max distance from center: " + this.maxDistance[i]);
-			System.out.println("Reproduction: " + this.reproduction[i]);
-			System.out.println("Supervivance: " + this.supervivance[i]);
-			System.out.println("Mortality over: " + this.mortalityOver[i]);
-			System.out.println("Mortality under: " + this.mortalityUnder[i]);
+			List<String> current = new ArrayList<>();
+			current.add(((Integer)this.population[i]).toString());
+			current.add(((Integer)((Double)this.maxDistance[i]).intValue()).toString());
+			current.add(((Integer)this.reproduction[i]).toString());
+			current.add(((Integer)this.supervivance[i]).toString());
+			current.add(((Integer)this.mortalityOver[i]).toString());
+			current.add(((Integer)this.mortalityUnder[i]).toString());
+			rows.add(current);
 		}
+
+		FileWriter csvWriter = null;
+		try {
+			csvWriter = new FileWriter("stats.csv");
+
+			csvWriter.append("Population");
+			csvWriter.append("\t");
+			csvWriter.append("Max distance from center");
+			csvWriter.append("\t");
+			csvWriter.append("Reproduction");
+			csvWriter.append("\t");
+			csvWriter.append("Survival");
+			csvWriter.append("\t");
+			csvWriter.append("Mortality over");
+			csvWriter.append("\t");
+			csvWriter.append("Mortality under");
+			csvWriter.append("\n");
+
+			for (List<String> rowData : rows) {
+				csvWriter.append(String.join("\t", rowData));
+				csvWriter.append("\n");
+			}
+
+			csvWriter.flush();
+			csvWriter.close();
+
+			System.out.println("CSV saved");
+		} catch (IOException e) {
+			System.out.println("CSV could not be saved");
+		}
+
+		
+//		for(int i = 0; i < this.iteration; i++) {
+//			System.out.println("-------Step: " + i + "--------");
+//			System.out.println("Population: " + this.population[i]);
+//			System.out.println("Max distance from center: " + this.maxDistance[i]);
+//			System.out.println("Reproduction: " + this.reproduction[i]);
+//			System.out.println("Supervivance: " + this.supervivance[i]);
+//			System.out.println("Mortality over: " + this.mortalityOver[i]);
+//			System.out.println("Mortality under: " + this.mortalityUnder[i]);
+//		}
 	}
 
 }
