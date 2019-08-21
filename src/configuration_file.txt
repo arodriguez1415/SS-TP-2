@@ -4,8 +4,9 @@ length = 25.0
 # SIMULATION MODIFIERS
 final_step = 125
 dimension = 2
-# battle - linear - random - fatality - cube - oscilator
-initialpattern = fatality
+# 2D: battle - linear - random - fatality - cube - cube2 - oscilator | 3D:
+initialpattern = cube2
+# 2D: general_2d - general_2d_modified - sliced - slicedreverse - parityflexible - paritymortal - contourn
 rule = general_2d
 
 # MATRIX MODIFIERS
