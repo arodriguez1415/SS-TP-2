@@ -83,6 +83,8 @@ public class Main {
 							g = Color.black.getGreen();
 							b = Color.black.getBlue();
 						}
+
+
 						double currentParticle[] = {id,x,y,ra,r,g,b};
 						currentPositions.add(currentParticle);
 					}

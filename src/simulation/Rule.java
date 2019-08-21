@@ -65,18 +65,25 @@ public class Rule {
 
 		if (currentState == true) {
 			if (count >= RULE_GENERAL2D_1 && count <= RULE_GENERAL2D_2) {
+				stadistics.incrementSupervivance();
 				return true;
+			} else if(count < RULE_GENERAL2D_1){
+				stadistics.incrementMortalityUnder();
+				return false;
 			} else {
+				stadistics.incrementMortalityOver();
 				return false;
 			}
 		} else {
 			if (count == RULE_GENERAL2D_2) {
+				stadistics.incrementReproduction();
 				return true;
 			} else {
 				return false;
 			}
 		}
 	}
+
 
 
 	private static boolean general3D(Particle[][][] matrix, int i, int j, int k, Particle p){
