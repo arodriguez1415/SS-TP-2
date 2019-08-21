@@ -289,12 +289,34 @@ public class Simulation {
 		positionParticleY = (double) (positionY + 1) * Particle.getLength() - Particle.getLength() / 2;
 		positionParticleZ = (double) (positionZ + 1) * Particle.getLength() - Particle.getLength() / 2;
 
-		state = randomPattern();
+		if (initialPattern.toLowerCase().equals("cube")) {
+			state = cube3DPattern(positionX, positionY, positionZ);
+		} else {
+			state = randomPattern();
+		}
 
 		particle = new Particle(positionParticleX, positionParticleY, positionParticleZ, state);
 		return particle;
 	}
-	
+
+	public boolean cube3DPattern(int i, int j, int z) {
+		int aux1 = totalRow/2;
+		int aux2 = totalColumn/2;
+		int aux3 = totalHeight/2;
+
+		for(int k = 0; k < totalRow/10; k++) {
+			for(int l = 0; l < totalColumn/10; l++) {
+				for(int m = 0; m < totalHeight/10; m++) {
+					if(i == aux1 + k && j == aux2 + l && z == aux3 + m) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public void nextStep2D() {
 		Particle newMatrix[][] = CellIndexMethod.getNextStage2D(this.universe2D);
 		this.universe2D.setMatrix(newMatrix);

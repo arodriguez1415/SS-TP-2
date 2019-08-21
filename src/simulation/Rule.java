@@ -4,35 +4,49 @@ import models.Particle;
 import models.Stadistics;
 
 public class Rule {
-	
+
 	public static int particlePerRow;
 	public static int particlePerColumn;
 	public static int particlePerHeight;
 	public static Stadistics stadistics;
-	
+
 	private static final int RULE_GENERAL2D_1 = 2;
 	private static final int RULE_GENERAL2D_2 = 3;
-	
+
 	private static final int RULE_GENERAL3D_1 = 6;
 	private static final int RULE_GENERAL3D_2 = 9;
-	
+
 	public static boolean implementRule2D(String rule, Particle[][] matrix, int i, int j, Particle p) {
 		boolean result = false;
 		if (rule.equals("general_2d")) {
 			result = general2D(matrix, i, j, p);
+		}else if(rule.equals("general_2d_modified")) {
+			result = general2DModified(matrix,i,j,p);
+		}else if(rule.equals("sliced")) {
+			result = sliced(matrix,i,j,p);
+		}else if(rule.equals("slicedreverse")) {
+			result = slicedReverse(matrix,i,j,p);
+		}else if(rule.equals("parityflexible")) {
+			result = parityFlexible(matrix,i,j,p);
+		}else if(rule.equals("paritymortal")) {
+			result = parityMortal(matrix,i,j,p);
+		}else if(rule.equals("contourn")) {
+			result = contourn(matrix,i,j,p);
+		}else {
+			System.out.println("NOT RULE FOUND: ERROR 505");
 		}
-		
+
 		return result;
 	}
-	
+
 	public static boolean implementRule3D(String rule, Particle[][][] matrix, int i, int j, int k, Particle p) {
 		boolean result = false;
-		if(rule.equals("general_3d")) 
+		if(rule.equals("general_3d"))
 			result = general3D(matrix, i, j, k, p);
-		
+
 		return result;
 	}
-	
+
 	private static boolean general2D(Particle[][] matrix, int i, int j, Particle p) {
 		int count = 0;
 		boolean currentState = matrix[i][j].getState();
@@ -65,6 +79,206 @@ public class Rule {
 		}
 	}
 
+	private static boolean general2DModified(Particle[][] matrix, int i, int j, Particle p) {
+		int count = 0;
+		boolean currentState = matrix[i][j].getState();
+
+		for (int x = i - 1 ; x <= i + 1 && x <= particlePerRow; x++) {
+			for (int y = j - 1; y <= j + 1 && y <= particlePerColumn; y++) {
+				count += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+			}
+		}
+
+
+		if(count >= RULE_GENERAL2D_1 && count <= RULE_GENERAL2D_2) {
+			if(currentState)
+				stadistics.incrementSupervivance();
+			else
+				stadistics.incrementReproduction();
+			return true;
+		}else {
+			if(count < RULE_GENERAL2D_1)
+				stadistics.incrementMortalityUnder();
+			else
+				stadistics.incrementMortalityOver();
+			return false;
+		}
+	}
+
+	private static boolean contourn(Particle[][] matrix, int i, int j, Particle p) {
+		int count4268 = 0;
+		int count7913 = 0;
+		boolean currentState = matrix[i][j].getState();
+
+		for (int x = i - 1 ; x <= i + 1 && x <= particlePerRow; x++) {
+			for (int y = j - 1; y <= j + 1 && y <= particlePerColumn; y++) {
+				if( (x == i && (y == j + 1 || y == j - 1)) || (y == j && (x == i + 1 || x == i - 1)) )
+					count4268 += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+				else
+					count7913 += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+			}
+		}
+
+		if(currentState) {
+			if(count4268 >= count7913) {
+				stadistics.incrementSupervivance();
+				return true;
+			}else {
+				if(count4268 == count7913 && count4268 == 0)
+					stadistics.incrementMortalityUnder();
+				else
+					stadistics.incrementMortalityOver();
+				return false;
+			}
+		}else {
+			if(count4268 > count7913) {
+				stadistics.incrementReproduction();
+				return true;
+			}
+			return false;
+		}
+
+	}
+
+	//Para mantenerte viva las celdas 1478 tienen que estar mas o igual de vivass que 2369
+	//Si no hay vecinas, muere
+	//Si 2369 es > que 1478 muere
+	//Si estaba muerta y 1478 > 2369 revive
+	private static boolean sliced(Particle[][] matrix, int i, int j, Particle p) {
+		int countTopLeft = 0;
+		int countDownRight = 0;
+		boolean currentState = matrix[i][j].getState();
+
+		for (int x = i - 1 ; x <= i + 1 && x <= particlePerRow; x++) {
+			for (int y = j - 1; y <= j + 1 && y <= particlePerColumn; y++) {
+				if(y == j - 1 || (x == i + 1 && y == j))
+					countTopLeft += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+				else
+					countDownRight += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+			}
+		}
+
+		if(currentState) {
+			if(countTopLeft >= countDownRight) {
+				stadistics.incrementSupervivance();
+				return true;
+			}else {
+				if(countTopLeft == countDownRight && countTopLeft == 0)
+					stadistics.incrementMortalityUnder();
+				else
+					stadistics.incrementMortalityOver();
+				return false;
+			}
+		}else {
+			if(countTopLeft > countDownRight) {
+				stadistics.incrementReproduction();
+				return true;
+			}
+			return false;
+		}
+	}
+
+	//Lo contrario a sliced
+	private static boolean slicedReverse(Particle[][] matrix, int i, int j, Particle p) {
+		int countTopLeft = 0;
+		int countDownRight = 0;
+		boolean currentState = matrix[i][j].getState();
+
+		for (int x = i - 1 ; x <= i + 1 && x <= particlePerRow; x++) {
+			for (int y = j - 1; y <= j + 1 && y <= particlePerColumn; y++) {
+				if(y == j - 1 || (x == i + 1 && y == j))
+					countTopLeft += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+				else
+					countDownRight += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+			}
+		}
+
+		if(currentState) {
+			if(countDownRight >= countTopLeft) {
+				stadistics.incrementSupervivance();
+				return true;
+			}else {
+				if(countTopLeft == countDownRight && countTopLeft == 0)
+					stadistics.incrementMortalityUnder();
+				else
+					stadistics.incrementMortalityOver();
+				return false;
+			}
+		}else {
+			if(countDownRight > countTopLeft) {
+				stadistics.incrementReproduction();
+				return true;
+			}
+			return false;
+		}
+	}
+
+	//Para mantenerse vivo debe haber cantidad multiplo de 4
+	//Si hay impar muere
+	//Si no tiene vecinas muere
+	//Si estaba muerto debe haber un multiplo de 2
+	private static boolean parityFlexible(Particle[][] matrix, int i, int j, Particle p) {
+		int count = 0;
+		boolean currentState = matrix[i][j].getState();
+
+		for (int x = i - 1 ; x <= i + 1 && x <= particlePerRow; x++) {
+			for (int y = j - 1; y <= j + 1 && y <= particlePerColumn; y++) {
+				count += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+			}
+		}
+
+		if(currentState) {
+			if(count % 4 == 0 && count != 0) {
+				stadistics.incrementSupervivance();
+				return true;
+			}else if (count == 0) {
+				stadistics.incrementMortalityUnder();
+			}else
+				stadistics.incrementMortalityOver();
+			return false;
+		}else {
+			if(count % 2 == 0 && count != 0) {
+				stadistics.incrementReproduction();
+				return true;
+			}
+			return false;
+		}
+
+	}
+
+	//Para mantenerse vivo debe haber cantidad multiplo de 2
+	//Si hay impar muere
+	//Si no tiene vecinas muere
+	//Si estaba muerto debe haber un multiplo de 4
+	private static boolean parityMortal(Particle[][] matrix, int i, int j, Particle p) {
+		int count = 0;
+		boolean currentState = matrix[i][j].getState();
+
+		for (int x = i - 1 ; x <= i + 1 && x <= particlePerRow; x++) {
+			for (int y = j - 1; y <= j + 1 && y <= particlePerColumn; y++) {
+				count += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
+			}
+		}
+
+		if(currentState) {
+			if(count % 2 == 0 && count != 0) {
+				stadistics.incrementSupervivance();
+				return true;
+			}else if (count == 0) {
+				stadistics.incrementMortalityUnder();
+			}else
+				stadistics.incrementMortalityOver();
+			return false;
+		}else {
+			if(count % 4 == 0 && count != 0) {
+				stadistics.incrementReproduction();
+				return true;
+			}
+			return false;
+		}
+
+	}
+
 
 	private static int neighbours(int x, int y, int particlePerColumn, int particlePerRow, Particle[][] matrix, Particle p) {
 		if (x == particlePerRow && y == particlePerColumn && matrix[0][0].getState()) {
@@ -95,7 +309,7 @@ public class Rule {
 
 	private static boolean general3D(Particle[][][] matrix, int i, int j, int k, Particle p){
 		int count = 0;
-		
+
 		for (int x = i - 1 ; x <= i + 1 && x < particlePerRow; x++) {
 			for (int y = j - 1; y <= j + 1 && y < particlePerColumn; y++) {
 				for (int z = k - 1; z <= k + 1 && z < particlePerHeight; z++) {
