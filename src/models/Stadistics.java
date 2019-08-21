@@ -98,7 +98,7 @@ public class Stadistics {
 					}
 				}
 			}
-		simulation.getUniverse2D().getMatrix()[row][column].signed = true;
+		//simulation.getUniverse2D().getMatrix()[row][column].signed = true;
 		System.out.println("Found max at: [" + row + "," + column + "]");
 		
 		return currentDistance;

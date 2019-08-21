@@ -39,26 +39,7 @@ public class Rule {
 
 		for (int x = i - 1 ; x <= i + 1 && x <= particlePerRow; x++) {
 			for (int y = j - 1; y <= j + 1 && y <= particlePerColumn; y++) {
-				if (x == particlePerRow && y == particlePerColumn && matrix[0][0].getState()) {
-					count++;
-				} else if (x == particlePerRow && y >= 0 && y <= particlePerColumn-1 && matrix[0][y].getState()) {
-					count++;
-				} else if (x > particlePerRow-1 && y < 0 && matrix[0][particlePerColumn-1].getState()) {
-					count++;
-				} else if (x >= 0 && y == particlePerColumn && x < particlePerRow && matrix[x][0].getState()) {
-					count++;
-				} else if (x < 0 && y == particlePerColumn && matrix[particlePerRow-1][0].getState()) {
-					count++;
-				} else if (x >= 0 && y >= 0 && x < particlePerRow && y < particlePerColumn
-						&& matrix[x][y].getId() != p.getId() && matrix[x][y].getState()) {
-					count++;
-				} else if (x >= 0 && y < 0 && x < particlePerRow && matrix[x][particlePerColumn-1].getState()) {
-					count++;
-				} else if (x < 0 && y < 0 && matrix[particlePerRow-1][particlePerColumn-1].getState()) {
-					count++;
-				} else if (x < 0 && y >= 0 && y < particlePerColumn && matrix[particlePerRow-1][y].getState()) {
-					count++;
-				}
+				count += neighbours(x, y, particlePerColumn, particlePerRow, matrix, p);
 			}
 		}
 
@@ -82,6 +63,32 @@ public class Rule {
 				return false;
 			}
 		}
+	}
+
+
+	private static int neighbours(int x, int y, int particlePerColumn, int particlePerRow, Particle[][] matrix, Particle p) {
+		if (x == particlePerRow && y == particlePerColumn && matrix[0][0].getState()) {
+			return 1;
+		} else if (x == particlePerRow && y >= 0 && y <= particlePerColumn-1 && matrix[0][y].getState()) {
+			return 1;
+		} else if (x > particlePerRow-1 && y < 0 && matrix[0][particlePerColumn-1].getState()) {
+			return 1;
+		} else if (x >= 0 && y == particlePerColumn && x < particlePerRow && matrix[x][0].getState()) {
+			return 1;
+		} else if (x < 0 && y == particlePerColumn && matrix[particlePerRow-1][0].getState()) {
+			return 1;
+		} else if (x >= 0 && y >= 0 && x < particlePerRow && y < particlePerColumn
+				&& matrix[x][y].getId() != p.getId() && matrix[x][y].getState()) {
+			return 1;
+		} else if (x >= 0 && y < 0 && x < particlePerRow && matrix[x][particlePerColumn-1].getState()) {
+			return 1;
+		} else if (x < 0 && y < 0 && matrix[particlePerRow-1][particlePerColumn-1].getState()) {
+			return 1;
+		} else if (x < 0 && y >= 0 && y < particlePerColumn && matrix[particlePerRow-1][y].getState()) {
+			return 1;
+		}
+
+		return 0;
 	}
 
 
