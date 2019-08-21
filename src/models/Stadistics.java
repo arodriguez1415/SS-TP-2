@@ -62,7 +62,59 @@ public class Stadistics {
 	}
 	
 	public void setCurrentMaxDistance(Simulation simulation) {
+		double centerX;
+		double centerY;
+		double centerZ;
+		double maxDistance;
 		
+		if(dimension == TWO_DIMENSION) {
+			centerX = (simulation.getUniverse2D().getParticlePerRow() * Particle.getLength()) / 2;
+			centerY = (simulation.getUniverse2D().getParticlePerColumn() * Particle.getLength()) / 2;
+			maxDistance = getMaxDistance(centerX, centerY, simulation.getUniverse2D().getMatrix(), simulation.getUniverse2D().getParticlePerRow(), simulation.getUniverse2D().getParticlePerColumn());
+		}else {
+			centerX = (simulation.getUniverse3D().getParticlePerRow() * Particle.getLength()) / 2;
+			centerY = (simulation.getUniverse3D().getParticlePerColumn() * Particle.getLength()) / 2;
+			centerZ = (simulation.getUniverse3D().getParticlePerHeight() * Particle.getLength()) / 2;
+			maxDistance = getMaxDistance(centerX, centerY, centerZ, simulation.getUniverse3D().getMatrix() ,
+					simulation.getUniverse3D().getParticlePerRow(), simulation.getUniverse3D().getParticlePerColumn(), simulation.getUniverse3D().getParticlePerHeight());
+		}
+		
+		this.maxDistance[iteration] = maxDistance;
+	}
+	
+	public double getMaxDistance(double x, double y, Particle matrix[][], int dimensionX, int dimensionY) {
+		double currentMax = 0.0;
+		double currentDistance = 0.0;
+		int row = 0;
+		int column = 0;
+		for(int i = 0; i < dimensionX; i++)
+			for(int j = 0; j < dimensionY; j++) {
+				if(matrix[i][j].getState()) {
+					currentDistance = Math.sqrt((Math.pow((matrix[i][j].getPositionX() - x),2) + Math.pow((matrix[i][j].getPositionY() - y),2)));
+					if(currentDistance > currentMax) {
+						currentMax = currentDistance;
+						row = i;
+						column = j;
+					}
+				}
+			}
+		System.out.println("Found max at: [" + row + "," + column + "]");
+		return currentDistance;
+	}
+
+	public double getMaxDistance(double x, double y, double z, Particle matrix[][][], int dimensionX, int dimensionY, int dimensionZ) {
+		double currentMax = 0.0;
+		double currentDistance = 0.0;
+		for(int i = 0; i < dimensionX; i++)
+			for(int j = 0; j < dimensionY; j++) 
+				for(int k = 0; k < dimensionZ; k++) {
+					if(matrix[i][j][k].getState()) {
+						currentDistance = Math.sqrt((Math.pow((matrix[i][j][k].getPositionX() - x),2) + Math.pow((matrix[i][j][k].getPositionY() - y),2) + Math.pow((matrix[i][j][k].getPositionZ() - z),2)));
+						if(currentDistance > currentMax)
+							currentMax = currentDistance;
+					}
+				}
+		return currentDistance;
 	}
 	
 	public int[] getReproduction() {
@@ -106,6 +158,7 @@ public class Stadistics {
 		for(int i = 0; i < this.iteration; i++) {
 			System.out.println("-------Step: " + i + "--------");
 			System.out.println("Population: " + this.population[i]);
+			System.out.println("Max distance from center: " + this.maxDistance[i]);
 			System.out.println("Reproduction: " + this.reproduction[i]);
 			System.out.println("Supervivance: " + this.supervivance[i]);
 			System.out.println("Mortality over: " + this.mortalityOver[i]);
