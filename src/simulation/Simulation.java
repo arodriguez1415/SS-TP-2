@@ -104,6 +104,8 @@ public class Simulation {
 			state = cube2DPattern(positionX, positionY);
 		} else if (initialPattern.toLowerCase().equals("cube2")) {
 			state = cubeModified2DPattern(positionX, positionY);
+		} else if (initialPattern.toLowerCase().equals("oscilator2")) {
+			state = oscilatorModified2DPattern(positionX,positionY);
 		} else if (initialPattern.toLowerCase().equals("oscilator")){
 			state = oscilator2DPattern(positionX, positionY);
 		} else if (initialPattern.toLowerCase().equals("fatality")){
@@ -202,6 +204,31 @@ public class Simulation {
 			}
 
 			if(i == aux1 + k && j == aux2 + 4){
+				return true;
+			}
+		}
+
+		if (i == aux1 && j == aux2 + 2) {
+			return true;
+		}
+
+		if (i == aux1 + 4 && j == aux2 + 2) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean oscilatorModified2DPattern(int i, int j) {
+		int aux1 = totalRow/2;
+		int aux2 = totalColumn/2;
+
+		for(int k = 0; k < 5; k ++) {
+			if(i == aux1 + k && j == aux2){
+				return true;
+			}
+
+			if(i == aux1 + k && j == aux2 - 4){
 				return true;
 			}
 		}
