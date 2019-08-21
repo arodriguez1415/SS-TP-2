@@ -2,12 +2,12 @@
 length = 25.0
 
 # SIMULATION MODIFIERS
-final_step = 5
-dimension = 3
-initialpattern = random
-rule = general_3d
+final_step = 125
+dimension = 2
+initialpattern = battle
+rule = general_2d
 
 # MATRIX MODIFIERS
-particle_per_row = 100
-particle_per_column = 100
-particle_per_height = 100
+particle_per_row = 70
+particle_per_column = 60
+particle_per_height = 5

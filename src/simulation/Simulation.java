@@ -111,21 +111,11 @@ public class Simulation {
 	public boolean randomPattern() {
 		Random rand = new Random();
 		float fl = rand.nextFloat();
-		if (fl > 0.95) {
+		if (fl <= 0.80) {
 			return true;
 		}
 		return false;
 	}
-
-	public boolean holaaaa(int i, int j, int z) {
-		Random rand = new Random();
-		float fl = rand.nextFloat();
-		if (fl > 0.75) {
-			return true;
-		}
-		return false;
-	}
-
 
 	public boolean battle2DPattern(int i, int j){
 		int aux1 = totalRow/2 - 10;
@@ -218,7 +208,7 @@ public class Simulation {
 		positionParticleY = (double) (positionY + 1) * Particle.getLength() - Particle.getLength() / 2;
 		positionParticleZ = (double) (positionZ + 1) * Particle.getLength() - Particle.getLength() / 2;
 
-		state = holaaaa(positionX,positionY,positionZ);
+		state = randomPattern();
 
 		particle = new Particle(positionParticleX, positionParticleY, positionParticleZ, state);
 		return particle;

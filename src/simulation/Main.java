@@ -83,13 +83,6 @@ public class Main {
 							g = Color.black.getGreen();
 							b = Color.black.getBlue();
 						}
-						
-						if(p.signed) {
-							r = Color.red.getRed();
-							g = Color.red.getGreen();
-							b = Color.red.getBlue();
-						}
-
 						double currentParticle[] = {id,x,y,ra,r,g,b};
 						currentPositions.add(currentParticle);
 					}

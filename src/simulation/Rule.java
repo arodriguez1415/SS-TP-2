@@ -36,37 +36,49 @@ public class Rule {
 	private static boolean general2D(Particle[][] matrix, int i, int j, Particle p) {
 		int count = 0;
 		boolean currentState = matrix[i][j].getState();
-	
-		for (int x = i - 1 ; x <= i + 1 && x < particlePerRow; x++) {
-			for (int y = j - 1; y <= j + 1 && y < particlePerColumn; y++) {
-				if (x >= 0 && y >= 0 && matrix[x][y].getId() != p.getId() && matrix[x][y].getState()) {
+
+		for (int x = i - 1 ; x <= i + 1 && x <= particlePerRow; x++) {
+			for (int y = j - 1; y <= j + 1 && y <= particlePerColumn; y++) {
+				if (x == particlePerRow && y == particlePerColumn && matrix[0][0].getState()) {
+					count++;
+				} else if (x == particlePerRow && y >= 0 && y <= particlePerColumn-1 && matrix[0][y].getState()) {
+					count++;
+				} else if (x > particlePerRow-1 && y < 0 && matrix[0][particlePerColumn-1].getState()) {
+					count++;
+				} else if (x >= 0 && y == particlePerColumn && x < particlePerRow && matrix[x][0].getState()) {
+					count++;
+				} else if (x < 0 && y == particlePerColumn && matrix[particlePerRow-1][0].getState()) {
+					count++;
+				} else if (x >= 0 && y >= 0 && x < particlePerRow && y < particlePerColumn
+						&& matrix[x][y].getId() != p.getId() && matrix[x][y].getState()) {
+					count++;
+				} else if (x >= 0 && y < 0 && x < particlePerRow && matrix[x][particlePerColumn-1].getState()) {
+					count++;
+				} else if (x < 0 && y < 0 && matrix[particlePerRow-1][particlePerColumn-1].getState()) {
+					count++;
+				} else if (x < 0 && y >= 0 && y < particlePerColumn && matrix[particlePerRow-1][y].getState()) {
 					count++;
 				}
-
 			}
 		}
 
+
 		if (currentState == true) {
 			if (count >= RULE_GENERAL2D_1 && count <= RULE_GENERAL2D_2) {
-				stadistics.incrementSupervivance();
 				return true;
-			} else if(count < RULE_GENERAL2D_1){
-				stadistics.incrementMortalityUnder();
-				return false;
 			} else {
-				stadistics.incrementMortalityOver();
 				return false;
 			}
 		} else {
 			if (count == RULE_GENERAL2D_2) {
-				stadistics.incrementReproduction();
 				return true;
 			} else {
 				return false;
 			}
 		}
 	}
-	
+
+
 	private static boolean general3D(Particle[][][] matrix, int i, int j, int k, Particle p){
 		int count = 0;
 		
