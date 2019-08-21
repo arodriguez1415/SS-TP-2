@@ -2,7 +2,7 @@
 ### Game of Life
 
 #### Introducción
-El juego de la vida es un autómata celular diseniado por John Conway. Desde un punto de vista teorico, todo lo que se puede computar algorítmicamente se puede computar en el juego de la vida.
+El juego de la vida es un autómata celular diseñado por John Conway. Desde un punto de vista teórico, todo lo que se puede computar algorítmicamente se puede computar en el juego de la vida.
 
 #### Instrucciones de ejecución
 1. Clonar el repositorio de github
@@ -30,16 +30,26 @@ Valores que puede tomar el parametro _initialpattern_ :
 + initialpattern = random
 + initialpattern = battle
 + initialpattern = linear
++ initialpattern = fatality
++ initialpattern = cube
++ initialpattern = cube2
++ initialpattern = oscilator
++ initialpattern = oscilator2
 
 ###### 3D
 + initialpattern = random
-+ initialpattern =
++ initialpattern = cube
 
 #### Reglas
 Valores que puede tomar el parametro _rule_ :
 ###### 2D
 + rule = general_2d
-+ rule =
++ rule = general_2d_modified
++ rule = sliced
++ rule = slicedreverse
++ rule = parityflexible
++ rule = paritymortal
++ rule = contourn
 
 ###### 3D
 + rule = general_3d
