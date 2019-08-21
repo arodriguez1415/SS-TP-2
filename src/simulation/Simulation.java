@@ -104,6 +104,8 @@ public class Simulation {
 			state = cube2DPattern(positionX, positionY);
 		} else if (initialPattern.toLowerCase().equals("oscilator")){
 			state = oscilator2DPattern(positionX, positionY);
+		} else if (initialPattern.toLowerCase().equals("fatality")){
+			state = fatality2DPattern(positionX, positionY);
 		} else {
 			state = randomPattern();
 		}
@@ -127,6 +129,44 @@ public class Simulation {
 
 		if(i == aux1 && j == aux2 || i == aux1+1 && j == aux2 || i == aux1 && j == aux2+1 ||
 				i == aux1+1 && j == aux2+1) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean fatality2DPattern(int i, int j) {
+		int aux1 = totalRow/2;
+		int aux2 = totalColumn/2;
+
+		for(int k = 0; k< 6; k++) {
+			if (i == aux1 + k && j == aux2) {
+				return true;
+			}
+			if (i == aux1 + k && j == aux2 + 6) {
+				return true;
+			}
+		}
+
+		for(int k = 0; k< 6; k++) {
+			if (i == aux1 && j == aux2 + k ) {
+				return true;
+			}
+			if (i == aux1 + 1 && j == aux2 + k) {
+				return true;
+			}
+			if (i == aux1 + 3 && j == aux2 + k) {
+				return true;
+			}
+			if (i == aux1 + 4 && j == aux2 + k) {
+				return true;
+			}
+			if (i == aux1 + 5 && j == aux2 + k) {
+				return true;
+			}
+		}
+
+		if (i == aux1 + 6 && (j == aux2 + 2 || j == aux2 + 3 || j == aux2 + 4)) {
 			return true;
 		}
 
