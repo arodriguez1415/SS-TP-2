@@ -73,7 +73,6 @@ public class Main {
 						double r;
 						double g;
 						double b;
-
 						if (p.getState()) {
 							r = Color.white.getRed();
 							g = Color.white.getGreen();
@@ -105,16 +104,19 @@ public class Main {
 							double r;
 							double g;
 							double b;
+							double alpha;
 							if (p.getState()) {
 								r = Color.white.getRed();
 								g = Color.white.getGreen();
 								b = Color.white.getBlue();
+								alpha = 0;
 							} else {
 								r = Color.black.getRed();
 								g = Color.black.getGreen();
 								b = Color.black.getBlue();
+								alpha = 1;
 							}
-							double currentParticle[] = {id, x, y, z, ra, r, g, b};
+							double currentParticle[] = {id, x, y, z, ra, r, g, b, alpha};
 							currentPositions.add(currentParticle);
 						}
 					}
@@ -171,10 +173,11 @@ public class Main {
 					}
 				} else {
 					writer.write(quantity + "\n");
-					writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" + "Z" + "\t" + "Radius" + "\t" + "Red"+ "\t" + "Green" + "\t" + "Blue" + "\n");
+					writer.write("\\ID" + "\t" + "X" + "\t" + "Y" + "\t" + "Z" + "\t" + "Radius" + "\t" + "Red"+ "\t" + "Green"
+							+ "\t" + "Blue" + "\t" + "Transparency" + "\n");
 
 					for (double[] d : list.get(j)) {
-						writer.write((int) d[0] + "\t" + d[1] + "\t" + d[2] + "\t" + d[3] + "\t" + d[4] + "\t" + d[5] + "\t" + d[6] + "\t" + d[7] + "\n");
+						writer.write((int) d[0] + "\t" + d[1] + "\t" + d[2] + "\t" + d[3] + "\t" + d[4] + "\t" + d[5] + "\t" + d[6] + "\t" + d[7] + "\t" + d[8] + "\n");
 					}
 				}
 
