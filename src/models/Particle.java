@@ -10,6 +10,7 @@ public class Particle {
 	private double positionZ;
 	private int id;
 	private boolean state;
+	public boolean signed = false;
 	
 	public Particle(double positionX, double positionY, boolean state) {
 		this.positionX 	= positionX;

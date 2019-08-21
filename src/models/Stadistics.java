@@ -70,7 +70,7 @@ public class Stadistics {
 		if(dimension == TWO_DIMENSION) {
 			centerX = (simulation.getUniverse2D().getParticlePerRow() * Particle.getLength()) / 2;
 			centerY = (simulation.getUniverse2D().getParticlePerColumn() * Particle.getLength()) / 2;
-			maxDistance = getMaxDistance(centerX, centerY, simulation.getUniverse2D().getMatrix(), simulation.getUniverse2D().getParticlePerRow(), simulation.getUniverse2D().getParticlePerColumn());
+			maxDistance = getMaxDistance(centerX, centerY, simulation.getUniverse2D().getMatrix(), simulation.getUniverse2D().getParticlePerRow(), simulation.getUniverse2D().getParticlePerColumn(), simulation);
 		}else {
 			centerX = (simulation.getUniverse3D().getParticlePerRow() * Particle.getLength()) / 2;
 			centerY = (simulation.getUniverse3D().getParticlePerColumn() * Particle.getLength()) / 2;
@@ -82,7 +82,7 @@ public class Stadistics {
 		this.maxDistance[iteration] = maxDistance;
 	}
 	
-	public double getMaxDistance(double x, double y, Particle matrix[][], int dimensionX, int dimensionY) {
+	public double getMaxDistance(double x, double y, Particle matrix[][], int dimensionX, int dimensionY, Simulation simulation) {
 		double currentMax = 0.0;
 		double currentDistance = 0.0;
 		int row = 0;
@@ -90,7 +90,7 @@ public class Stadistics {
 		for(int i = 0; i < dimensionX; i++)
 			for(int j = 0; j < dimensionY; j++) {
 				if(matrix[i][j].getState()) {
-					currentDistance = Math.sqrt((Math.pow((matrix[i][j].getPositionX() - x),2) + Math.pow((matrix[i][j].getPositionY() - y),2)));
+					currentDistance = Math.sqrt( (Math.pow((matrix[i][j].getPositionX() - x),2) + Math.pow((matrix[i][j].getPositionY() - y),2)) );
 					if(currentDistance > currentMax) {
 						currentMax = currentDistance;
 						row = i;
@@ -98,7 +98,9 @@ public class Stadistics {
 					}
 				}
 			}
+		simulation.getUniverse2D().getMatrix()[row][column].signed = true;
 		System.out.println("Found max at: [" + row + "," + column + "]");
+		
 		return currentDistance;
 	}
 
