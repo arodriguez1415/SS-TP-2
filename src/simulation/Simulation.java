@@ -337,8 +337,14 @@ public class Simulation {
 
 		if (initialPattern.toLowerCase().equals("cube")) {
 			state = cube3DPattern(positionX, positionY, positionZ);
+		} else if (initialPattern.toLowerCase().equals("border")) {
+			state = border3DPattern(positionX, positionY, positionZ);
+		} else if (initialPattern.toLowerCase().equals("linear")) {
+			state = linear3DPattern(positionX, positionY, positionZ);
+		} else if (initialPattern.toLowerCase().equals("glider")) {
+			state = glider3DPattern(positionX, positionY, positionZ);
 		} else {
-			state = randomPattern();
+			state = random3DPattern();
 		}
 
 		particle = new Particle(positionParticleX, positionParticleY, positionParticleZ, state);
@@ -351,22 +357,121 @@ public class Simulation {
 		int aux3 = totalHeight/2;
 
 		for(int k = 0; k < totalRow/10; k++) {
-			for(int l = 0; l < totalColumn/10; l++) {
-				for(int m = 0; m < totalHeight/10; m++) {
-					if(i == aux1 + 2 && j == aux2 + l && z == aux3 + m) {
-						return true;
-					}
-					if(i == aux1 + k && j == aux2 + l && z == aux3 + m) {
+			for (int l = 0; l < totalColumn / 10; l++) {
+				for (int m = 0; m < totalHeight / 10; m++) {
+					if (i == aux1 + k && j == aux2 + l && z == aux3 + m) {
 						return true;
 					}
 				}
 			}
 		}
 
+		return false;
+	}
 
+	public boolean random3DPattern() {
+		Random rand = new Random();
+		float fl = rand.nextFloat();
+		if (fl <= 0.005) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean border3DPattern(int i, int j, int z) {
+		int aux1 = totalRow/2;
+		int aux2 = totalColumn/2;
+		int aux3 = totalHeight/2;
+
+		for(int k = 0; k < totalRow; k++) {
+			for(int l = 0; l < totalColumn; l++) {
+				for(int m = 0; m < totalHeight; m++) {
+					if(i == 0 && j == 0 & z != 0 ) {
+						return true;
+					}
+					if(i != 0 && j == 0 & z == 0 ) {
+						return true;
+					}
+					if(i == 0 && j != 0 & z == 0 ) {
+						return true;
+					}
+
+					if(i == totalRow-1 && j != totalColumn-1 & z == 0 ) {
+						return true;
+					}
+
+					if(i == 0 && j != totalColumn-1 & z == totalHeight-1 ) {
+						return true;
+					}
+
+					if(i == totalRow-1 && j == 0 & z != totalHeight-1 ) {
+						return true;
+					}
+
+					if(i == totalRow-1 && j == totalColumn-1 & z != totalHeight-1 ) {
+						return true;
+					}
+
+					if(i != totalRow-1 && j == totalColumn-1 & z == totalHeight-1 ) {
+						return true;
+					}
+
+					if(i == totalRow-1 && j != totalColumn-1 & z == totalHeight-1 ) {
+						return true;
+					}
+				}
+			}
+		}
 
 		return false;
 	}
+
+	public boolean linear3DPattern(int i, int j, int z) {
+		int aux1 = totalRow/2;
+		int aux2 = totalColumn/2;
+		int aux3 = totalHeight/2;
+
+		for(int k = 0; k < aux2/10; k++) {
+			for (int l = 0; l < aux1/10; l++) {
+				for (int m = -totalHeight/3; m < totalHeight/3; m++) {
+					if (i == aux1 + k && j == totalColumn/2 && z == aux3 + m) {
+						return true;
+					}
+
+					if (i == aux1 + k + totalRow/4 && j == totalColumn/2 && z == aux3 + m) {
+						return true;
+					}
+
+					if (i == aux1 + k - totalRow/4 && j == totalColumn/2 && z == aux3 + m) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public boolean glider3DPattern(int i, int j, int z) { //oscila con 5655
+		int aux1 = totalRow/2;
+		int aux2 = totalColumn/2;
+		int aux3 = totalHeight/2;
+
+		if(i == aux1 && j == aux2 && z == aux3 || i == aux1 + 1 && j == aux2 && z == aux3
+		|| i == aux1 + 2 && j == aux2 && z == aux3){
+			return true;
+		}
+		if(i == aux1 && j == aux2 && z == aux3 + 2 || i == aux1 + 1 && j == aux2 && z == aux3 + 2
+				|| i == aux1 + 2 && j == aux2 && z == aux3 + 2){
+			return true;
+		}
+		if(i == aux1 + 1 && j == aux2 && z == aux3 + 1){
+			return true;
+		}
+
+		return false;
+	}
+
 
 	public void nextStep2D() {
 		Particle newMatrix[][] = CellIndexMethod.getNextStage2D(this.universe2D);
