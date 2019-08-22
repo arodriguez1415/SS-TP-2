@@ -105,11 +105,32 @@ public class Main {
 							double g;
 							double b;
 							double alpha;
+							double maxz = particle_per_height * ra;
+							double maxx = particle_per_row * ra;
+							double maxy = particle_per_column * ra;
+
 							if (p.getState()) {
-								r = Color.white.getRed();
-								g = Color.white.getGreen();
-								b = Color.white.getBlue();
-								alpha = 0;
+								if(z>=(maxz/2 + maxz/4)) {
+									r = Color.red.getRed();
+									g = Color.red.getGreen();
+									b = Color.red.getBlue();
+									alpha = 0.2;
+								} else if(z<(maxz/2 + maxz/4) && z>=maxz/2) {
+									r = Color.green.getRed();
+									g = Color.green.getGreen();
+									b = Color.green.getBlue();
+									alpha = 0.2;
+								} else if(z>=maxz/4 && z<maxz/2) {
+									r = Color.yellow.getRed();
+									g = Color.yellow.getGreen();
+									b = Color.yellow.getBlue();
+									alpha = 0.2;
+								} else {
+									r = Color.blue.getRed();
+									g = Color.blue.getGreen();
+									b = Color.blue.getBlue();
+									alpha = 0.2;
+								}
 							} else {
 								r = Color.black.getRed();
 								g = Color.black.getGreen();
