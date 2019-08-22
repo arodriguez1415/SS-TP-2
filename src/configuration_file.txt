@@ -2,14 +2,15 @@
 length = 25.0
 
 # SIMULATION MODIFIERS
-final_step = 125
-dimension = 2
+final_step = 30
+dimension = 3
 # 2D: battle - linear - random - fatality - cube - cube2 - oscilator - oscilator2 | 3D:
-initialpattern = oscilator2
+initialpattern = random
 # 2D: general_2d - general_2d_modified - sliced - slicedreverse - parityflexible - paritymortal - contourn
-rule = contourn
+# 3D: general_3d - rule_4555 - rule_5766 - rule_4526 - rule_2333 - rule_5655 - rule_10211021
+rule = rule_2333
 
 # MATRIX MODIFIERS
 particle_per_row = 80
 particle_per_column = 80
-particle_per_height = 5
+particle_per_height = 80
