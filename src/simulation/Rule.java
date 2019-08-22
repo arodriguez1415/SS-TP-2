@@ -43,6 +43,21 @@ public class Rule {
 		boolean result = false;
 		if(rule.equals("general_3d"))
 			result = general3D(matrix, i, j, k, p);
+		else if(rule.equals("rule_4555")) {
+			result = generic3DRule(matrix, i, j, k, p, 4, 5, 5, 5);
+		}else if(rule.equals("rule_5766")) {
+			result = generic3DRule(matrix, i, j, k, p, 5, 7, 6, 6);
+		}else if(rule.equals("rule_4526")) {
+			result = generic3DRule(matrix, i, j, k, p, 4, 5, 2, 6);
+		}else if(rule.equals("rule_2333")) {
+			result = generic3DRule(matrix, i, j, k, p, 2, 3, 3, 3);
+		}else if(rule.equals("rule_5655")) {
+			result = generic3DRule(matrix, i, j, k, p, 5, 6, 5, 5);
+		}else if(rule.equals("rule_10211021")) {
+			result = generic3DRule(matrix, i, j, k, p, 10, 21, 10, 21);
+		}else {
+			System.out.println("NOT RULE FOUND: ERROR 505");
+		}
 
 		return result;
 	}
@@ -309,6 +324,7 @@ public class Rule {
 
 	private static boolean general3D(Particle[][][] matrix, int i, int j, int k, Particle p){
 		int count = 0;
+		boolean currentState = matrix[i][j][k].getState();
 
 		for (int x = i - 1 ; x <= i + 1 && x < particlePerRow; x++) {
 			for (int y = j - 1; y <= j + 1 && y < particlePerColumn; y++) {
@@ -320,11 +336,60 @@ public class Rule {
 			}
 		}
 
-		if (count >= RULE_GENERAL3D_1 && count == RULE_GENERAL3D_2) {
-			return true;
+		if(currentState) {
+			if(count >= RULE_GENERAL3D_1 && count <= RULE_GENERAL3D_2) {
+				stadistics.incrementSupervivance();
+				return true;
+			}else if (count < RULE_GENERAL3D_1) {
+				stadistics.incrementMortalityUnder();
+				return false;
+			}else {
+				stadistics.incrementMortalityOver();
+				return false;
+			}	
+		}else {
+			if(count >= RULE_GENERAL3D_1 && count <= RULE_GENERAL3D_2) {
+				stadistics.incrementReproduction();
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	private static boolean generic3DRule(Particle[][][] matrix, int i, int j, int k, Particle p, int initialE, int finalE, int initialF, int finalF){
+		int count = 0;
+		boolean currentState = matrix[i][j][k].getState();
+
+		for (int x = i - 1 ; x <= i + 1 && x < particlePerRow; x++) {
+			for (int y = j - 1; y <= j + 1 && y < particlePerColumn; y++) {
+				for (int z = k - 1; z <= k + 1 && z < particlePerHeight; z++) {
+					if (x >= 0 && y >= 0 && z >= 0 && matrix[x][y][z].getId() != p.getId() && matrix[x][y][z].getState()) {
+						count++;
+					}
+				}
+			}
 		}
 
-		return false;
+		if(currentState) {
+			if(count >= initialE && count <= finalE) {
+				stadistics.incrementSupervivance();
+				return true;
+			}else if (count < initialE) {
+				stadistics.incrementMortalityUnder();
+				return false;
+			}else {
+				stadistics.incrementMortalityOver();
+				return false;
+			}	
+		}else {
+			if(count >= initialF && count <= finalF) {
+				stadistics.incrementReproduction();
+				return true;
+			}
+			return false;
+		}
 	}
+	
+	
 
 }
