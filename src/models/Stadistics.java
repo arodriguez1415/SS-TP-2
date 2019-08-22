@@ -107,7 +107,7 @@ public class Stadistics {
 		//simulation.getUniverse2D().getMatrix()[row][column].signed = true;
 		System.out.println("Found max at: [" + row + "," + column + "]");
 		
-		return currentDistance;
+		return currentMax;
 	}
 
 	public double getMaxDistance(double x, double y, double z, Particle matrix[][][], int dimensionX, int dimensionY, int dimensionZ) {
