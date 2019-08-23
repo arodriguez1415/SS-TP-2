@@ -15,7 +15,7 @@ ___Aclaración:___ En el archivo *configuration_file.txt* ubicado en *src/* se p
 
 | Parametros  | Descripción                   |
 | ------------- | ------------------------------
-| `length`      |    | 
+| `length`      | Largo de la particula   | 
 | `final_step`   | La cantidad de veces que se aplicarán las reglas  | 
 | `dimension`   |  Establece la dimensión (2 o 3) |
 | `initialpattern`   | Configuracion inicial de celulas vivas y muertas |
@@ -39,6 +39,9 @@ Valores que puede tomar el parametro _initialpattern_ :
 ###### 3D
 + initialpattern = random
 + initialpattern = cube
++ initialpattern = glider
++ initialpattern = border
++ initialpattern = linear
 
 #### Reglas
 Valores que puede tomar el parametro _rule_ :
@@ -53,7 +56,12 @@ Valores que puede tomar el parametro _rule_ :
 
 ###### 3D
 + rule = general_3d
-+ rule = 
++ rule = rule_4555
++ rule = rule_5766
++ rule = rule_4526
++ rule = rule_2333
++ rule = rule_5655
++ rule = rule_10211021
 
 
 #### GRUPO 4 - Integrantes
