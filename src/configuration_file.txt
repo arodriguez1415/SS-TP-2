@@ -4,7 +4,7 @@ length = 25.0
 # SIMULATION MODIFIERS
 final_step = 40
 dimension = 3
-# 2D: battle - linear - random - fatality - cube - cube2 - oscilator - oscilator2 | 3D: random - cube - border - glider
+# 2D: battle - linear - random - fatality - cube - cube2 - oscilator - oscilator2 | 3D: random - linear - cube - border - glider
 initialpattern = glider
 # 2D: general_2d - general_2d_modified - sliced - slicedreverse - parityflexible - paritymortal - contourn
 # 3D: general_3d - rule_4555 - rule_5766 - rule_4526 - rule_2333 - rule_5655 - rule_10211021
